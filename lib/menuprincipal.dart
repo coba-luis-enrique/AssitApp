@@ -1,4 +1,3 @@
-//import 'package:asesorias_flutter/login.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'nuevaasesoria.dart';
@@ -13,17 +12,18 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-          padding: EdgeInsets.symmetric(vertical: 30),
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
+    var linearGradient = LinearGradient(
                   begin: Alignment.topCenter,
                   colors: [
                     Colors.blue[900],
                     Colors.blue[700],
                   ]
-              )
+              );
+    return Scaffold(
+        body: Container(
+          padding: EdgeInsets.symmetric(vertical: 30),
+          decoration: BoxDecoration(
+              gradient: linearGradient
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +43,9 @@ class _MenuState extends State<Menu> {
                         children: [
                           SizedBox(height: 25,),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => NuevaAsesoria()));
+                            },
                             icon: Icon(Icons.add_circle_outline_sharp),
                             color: Colors.white,
                             iconSize: 35,

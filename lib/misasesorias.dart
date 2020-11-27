@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'menuprincipal.dart';
 
 class Misasesorias extends StatefulWidget {
   @override
