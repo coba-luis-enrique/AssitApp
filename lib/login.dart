@@ -8,6 +8,7 @@ class Login extends StatelessWidget {
     return SafeArea(
           child: Scaffold(
           resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomInset: false,
           body: Container(
             padding: EdgeInsets.symmetric(vertical: 5),
             width: double.infinity,
@@ -47,7 +48,7 @@ class Login extends StatelessWidget {
                         padding: EdgeInsets.all(30),
                         child: Column(
                           children: [
-                            SizedBox(height: 45,),
+                            SizedBox(height: 20,),
                             Container(
                               //padding: EdgeInsets.all(20),
                               decoration: BoxDecoration(
@@ -64,7 +65,7 @@ class Login extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(2),
                                     child: TextField(
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
                                           hintText: 'Ingresa tu matrícula',
                                           hintStyle: TextStyle(color: Colors.grey),
@@ -72,10 +73,29 @@ class Login extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  Container(
+                                    child: Divider(
+                                      color: Colors.grey,
+                                      height: 5,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(2),
+                                    child: TextField(
+                                      obscureText: true,
+                                      obscuringCharacter: '●',
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                          hintText: 'Ingresa tu contraseña',
+                                          hintStyle: TextStyle(color: Colors.grey),
+                                          border: InputBorder.none,
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
-                            SizedBox(height: 40,),
+                            SizedBox(height: 35,),
                             Container(
                               child: RaisedButton.icon(
                                 onPressed: () {
