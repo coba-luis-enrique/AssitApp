@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.all(2),
                                     child: TextField(
-                                      keyboardType: TextInputType.text,
+                                      keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
                                           hintText: 'Ingresa tu matrícula',
                                           hintStyle: TextStyle(color: Colors.grey),
