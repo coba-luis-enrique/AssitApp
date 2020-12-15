@@ -12,7 +12,7 @@ class Registro extends StatelessWidget {
 
     return SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomPadding: false,
+          resizeToAvoidBottomPadding: true,
           backgroundColor: Colors.blue[800],
            body: SingleChildScrollView(
                         child: Stack(
@@ -35,27 +35,32 @@ class Registro extends StatelessWidget {
              SizedBox(height: 7,),
              MiInputBox(
                label: 'Nombre',
-               inputHint: 'Jose',
+               inputHint: 'Eje: Jose',
              ),
              SizedBox(height: 1,),
              MiInputBox(
                label: 'Apellido',
-               inputHint: 'Pool',
+               inputHint: 'Eje: Pool',
              ),
              SizedBox(height: 1,),
              MiInputBox(
                label: 'Carrera',
-               inputHint: 'Sistemas',
+               inputHint: 'Eje: Sistemas',
              ),
              SizedBox(height: 1,),
              MiInputBox(
                label: 'Semestre',
-               inputHint: 'Quinto',
+               inputHint: 'Eje: Quinto',
              ),
              SizedBox(height: 1,),
              MiInputBox(
                label: 'Matrícula',
                inputHint: '20070010',
+             ),
+             SizedBox(height: 1,),
+             InputContraRegistro(
+               label: 'Contraseña',
+               inputHint: 'Nueva contraseña',
              ),
              SizedBox(height: 2),
              Container(
