@@ -10,6 +10,7 @@ class _MisasesoriasState extends State<Misasesorias> {
 
   List <String> asesorias = [ 'Cálculo','Física', 'Álgebra', 'Taller de Ética'];
   List <String> alcance = [ 'Ecuaciones','Conversiones', 'Imaginarios', 'Entrevistas'];
+  List <String> espacio = [ '3/20','12/20', '18/20', '2/20'];
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,17 @@ class _MisasesoriasState extends State<Misasesorias> {
                             title: Text(asesorias[index]),
                             subtitle: Text(alcance[index]),
                             trailing: Wrap(
-                              spacing: 15,
-                              children: [
-                                Icon(Icons.info),
-                                Icon(Icons.delete)
+                              children: [                     
+                                IconButton(
+                                  onPressed: (){
+                                  },
+                                  icon: Icon(Icons.info)
+                                  ),
+                                IconButton(
+                                  onPressed: (){
+                                  },
+                                  icon: Icon(Icons.delete)
+                                  ),
                               ],
                             ),
                     ),
