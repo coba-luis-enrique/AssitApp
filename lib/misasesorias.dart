@@ -9,6 +9,7 @@ class Misasesorias extends StatefulWidget {
 class _MisasesoriasState extends State<Misasesorias> {
 
   List <String> asesorias = [ 'Cálculo','Física', 'Álgebra', 'Taller de Ética'];
+  List <String> alcance = [ 'Ecuaciones','Conversiones', 'Imaginarios', 'Entrevistas'];
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +32,13 @@ class _MisasesoriasState extends State<Misasesorias> {
                     child: Card(
                           child: ListTile(
                             title: Text(asesorias[index]),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: (){},
-                              color: Colors.grey,
+                            subtitle: Text(alcance[index]),
+                            trailing: Wrap(
+                              spacing: 15,
+                              children: [
+                                Icon(Icons.info),
+                                Icon(Icons.delete)
+                              ],
                             ),
                     ),
                     ),
