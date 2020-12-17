@@ -38,9 +38,9 @@ class _HomePage extends State<HomePage> {
     ]);
 
     return Scaffold(
-        backgroundColor: Colors.blue[500],
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("AssistApp"),
+          title: Text("Inicio"),
           backgroundColor: Colors.blue[900],
           centerTitle: true,
           elevation: 1.5,
@@ -77,8 +77,11 @@ class _HomePage extends State<HomePage> {
                       alignment: Alignment.centerRight,
                       //width: MediaQuery.of(context).size.width * 0.70,
                       child: Text(
-                        "INSTITUTO TECENOLOGICO SUPERIOR DE VALLADOLID",
-                        style: TextStyle(fontSize: 20),
+                        "INSTITUTO TECNOLOGICO SUPERIOR DE VALLADOLID",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -86,40 +89,60 @@ class _HomePage extends State<HomePage> {
               ),
             ),
             Container(
-              //width: double.infinity,
-              //decoration: BoxDecoration(color: Colors.blue[300]),
-              //padding: EdgeInsets.all(10),
-              //elevation: 1.5
-              padding:
-                  EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-              width: double.infinity,
-              height: 70,
-              alignment: Alignment.center,
-              child: Text(
-                "¡BIENVENIDO A ASSISTAPP!",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+                //width: double.infinity,
+                //decoration: BoxDecoration(color: Colors.blue[300]),
+                //padding: EdgeInsets.all(10),
+                //elevation: 1.5
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                width: double.infinity,
+                height: 70,
+                alignment: Alignment.center,
+                child: RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: '" Bienvenido a',
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.bold)),
+                      TextSpan(
+                          text: ' AssistApp "',
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ],
+                  ),
+                )),
             Expanded(
                 flex: 1,
                 child: Container(
                   width: double.infinity,
+                  //decoration: BoxDecoration(gradient: linearGradient),
                   //height: 70,
                   padding: EdgeInsets.all(10),
                   child: Card(
+                      color: Colors.orangeAccent,
+                      //color: LinearGradient,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       elevation: 1.5,
                       child: Column(
                         children: <Widget>[
                           Expanded(
                             flex: 3,
                             child: Container(
-                              height: MediaQuery.of(context).size.height * 0.25,
+                              //height: MediaQuery.of(context).size.height * 0.25,
                               width: 280,
                               margin: EdgeInsets.only(top: 10),
                               padding: EdgeInsets.all(15),
                               child: Container(
                                 child: Image.asset(
-                                  "assets/asesorias.jpg",
+                                  "assets/asesoriasDisponible.png",
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -132,8 +155,15 @@ class _HomePage extends State<HomePage> {
                                 padding: EdgeInsets.only(
                                     left: 20, right: 20, top: 10, bottom: 10),
                                 child: MaterialButton(
-                                  child: Text("MIS ASESORIAS"),
-                                  color: Colors.orangeAccent,
+                                  child: Text(
+                                    "Asesorías disponibles",
+                                    style: TextStyle(
+                                        //fontSize: 20,
+                                        //backgroundColor: Colors.white,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  color: Colors.blue[900],
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
@@ -154,6 +184,10 @@ class _HomePage extends State<HomePage> {
                   //height: 70,
                   padding: EdgeInsets.all(10),
                   child: Card(
+                      color: Colors.orangeAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       elevation: 1.5,
                       child: Column(
                         children: <Widget>[
@@ -161,12 +195,12 @@ class _HomePage extends State<HomePage> {
                             flex: 3,
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.25,
-                              width: 280,
+                              width: 250,
                               margin: EdgeInsets.only(top: 10),
                               padding: EdgeInsets.all(15),
                               child: Container(
                                 child: Image.asset(
-                                  "assets/asesoriasDisponible.png",
+                                  "assets/asesorias.png",
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -179,8 +213,15 @@ class _HomePage extends State<HomePage> {
                                 padding: EdgeInsets.only(
                                     left: 20, right: 20, top: 10, bottom: 10),
                                 child: MaterialButton(
-                                  child: Text("ASESORIAS DISPONIBLES"),
-                                  color: Colors.orangeAccent,
+                                  child: Text(
+                                    "Mis Asesorías",
+                                    style: TextStyle(
+                                        //fontSize: 20,
+                                        //backgroundColor: Colors.white,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  color: Colors.blue[900],
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
@@ -199,7 +240,7 @@ class _HomePage extends State<HomePage> {
         ),
         drawer: new Drawer(
             child: Container(
-                color: Colors.blue[100],
+                color: Colors.white,
                 child: ListView(
                   children: <Widget>[
                     UserAccountsDrawerHeader(
@@ -225,7 +266,7 @@ class _HomePage extends State<HomePage> {
                         image: DecorationImage(
                             fit: BoxFit.fill,
                             image: NetworkImage(
-                                "https://i.pinimg.com/originals/ac/62/6e/ac626e6c72aff0119e609be0438af8fe.jpg")),
+                                "https://i.pinimg.com/originals/51/03/c7/5103c761b07bf769be4a184a700a15c4.jpg")),
                       ),
                     ),
                     ListTile(
