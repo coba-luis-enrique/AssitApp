@@ -44,6 +44,7 @@ class _AsesoriasdispState extends State<Asesoriasdisp> {
                       trailing: Wrap(
                         children: [
                           RaisedButton.icon(
+                            onPressed: () {},
                             icon: Icon(Icons.assignment_ind_sharp),
                             label: Text('7/10'),
                             color: Colors.grey,
