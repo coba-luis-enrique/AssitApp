@@ -45,14 +45,12 @@ class _AsesoriasdispState extends State<Asesoriasdisp> {
                         children: [
                           RaisedButton.icon(
                             icon: Icon(Icons.assignment_ind_sharp),
-                            label: Text('7/10'),
-                            color: Colors.grey,
+                            label: Text('8/10',
+                                style: TextStyle(color: Colors.black)),
                           ),
-                          RaisedButton.icon(
+                          IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.assignment_late_sharp),
-                            label: Text('info'),
-                            color: Colors.grey,
+                            icon: Icon(Icons.info_outline),
                           ),
                           IconButton(
                             onPressed: () {},
