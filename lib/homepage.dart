@@ -168,7 +168,7 @@ class _HomePage extends State<HomePage> {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                Misasesorias()));
+                                                Asesoriasdisp()));
                                   },
                                 ),
                               ),
@@ -294,7 +294,7 @@ class _HomePage extends State<HomePage> {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  Misasesorias()));
+                                  Asesoriasdisp()));
                         }),
                     Divider(
                       thickness: 1.0,

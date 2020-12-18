@@ -44,16 +44,12 @@ class _MisasesoriasState extends State<Misasesorias> {
                       trailing: Wrap(
                         children: [
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.info,
-                              ),
-                              alignment: Alignment.topRight),
-                          RaisedButton.icon(
+                            onPressed: () {},
+                            icon: Icon(Icons.info_outline),
+                          ),
+                          IconButton(
                             onPressed: () {},
                             icon: Icon(Icons.delete),
-                            label: Text('7/10'),
-                            color: Colors.grey,
                           ),
                         ],
                       ),
