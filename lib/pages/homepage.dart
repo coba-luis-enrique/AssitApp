@@ -1,24 +1,105 @@
+import 'package:asesorias_flutter/pages/asesorias_disp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'otherpage.dart';
+import 'crud/crud_asesorias.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'nuevaasesoria.dart';
-import 'asesoriasdisp.dart';
-import 'misasesorias.dart';
+import 'login_page.dart';
+import 'asesorias_disp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/model_mahasiswa.dart';
+import 'detail_mahasiswa.dart';
+import 'form_mahasiswa.dart';
+import '../utils/db_helper.dart';
 
-class HomePage extends StatefulWidget {
+class Home_Page extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomePage();
+    return _Home_Page();
   }
 }
 
-class _HomePage extends State<HomePage> {
+class _Home_Page extends State<Home_Page> {
   String mainProfilePic =
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
+      "https://i.pinimg.com/originals/3b/06/d1/3b06d1589ad977c87c25c9c3a86a5631.jpg";
   String otherProfilePic =
       "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/368-mj-2516-02.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=9f3d0ad657bbca1c0f2db36ad7deb323";
+
+  String email = '';
+  String username = '';
+  List<ModelMahasiswa> listMahasiswa = [];
+  DatabaseHelper db = DatabaseHelper();
+
+  Future<void> _getAllMahasiswa() async {
+    var list = await db.getAllMahasiswa();
+    setState(() {
+      listMahasiswa.clear();
+      list.forEach((element) {
+        listMahasiswa.add(ModelMahasiswa.fromMap(element));
+      });
+      print(list);
+    });
+  }
+
+  Future<void> _deleteMahasiswa(ModelMahasiswa mahasiswa, int position) async {
+    await db.deleteMahasiswa(mahasiswa.id);
+
+    setState(() {
+      listMahasiswa.removeAt(position);
+    });
+  }
+
+  Future<void> _openFormCreate() async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FormMahasiswa(),
+      ),
+    );
+
+    if (result == 'save') {
+      await _getAllMahasiswa();
+    }
+  }
+
+  Future<void> _openFormEdit(ModelMahasiswa mahasiswa) async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FormMahasiswa(mahasiswa: mahasiswa),
+      ),
+    );
+
+    if (result == 'update') {
+      await _getAllMahasiswa();
+    }
+  }
+
+  void logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.clear();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      ),
+    );
+  }
+
+  void getDataPref() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      username = pref.getString('username');
+      email = pref.getString('email');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllMahasiswa();
+    getDataPref();
+  }
 
   //.. Switching Profile using multiple Accounts
 
@@ -168,7 +249,7 @@ class _HomePage extends State<HomePage> {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                Asesoriasdisp()));
+                                                HomeAsesoriaDisp()));
                                   },
                                 ),
                               ),
@@ -226,7 +307,7 @@ class _HomePage extends State<HomePage> {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                Misasesorias() //CAMBIAR CUANDO TENGAMOS EL MODULO DE ASESORIAS DIPONIBLES
+                                                HomeAsesoria() //CAMBIAR CUANDO TENGAMOS EL MODULO DE ASESORIAS DIPONIBLES
                                             ));
                                   },
                                 ),
@@ -244,8 +325,8 @@ class _HomePage extends State<HomePage> {
                 child: ListView(
                   children: <Widget>[
                     UserAccountsDrawerHeader(
-                      accountName: Text("John Doe"),
-                      accountEmail: Text("johndoe@email.com"),
+                      accountName: Text("$username"),
+                      accountEmail: Text("$email"),
                       currentAccountPicture: GestureDetector(
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(mainProfilePic),
@@ -261,7 +342,6 @@ class _HomePage extends State<HomePage> {
                 ),
               ),
             ], */
-
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.fill,
@@ -275,7 +355,7 @@ class _HomePage extends State<HomePage> {
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => NuevaAsesoria(),
+                            builder: (BuildContext context) => FormMahasiswa(),
                           ));
                         }),
                     ListTile(
@@ -285,7 +365,7 @@ class _HomePage extends State<HomePage> {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  Misasesorias()));
+                                  HomeAsesoria()));
                         }),
                     ListTile(
                         title: Text("Asesorias Disponibles"),
@@ -294,15 +374,15 @@ class _HomePage extends State<HomePage> {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  Asesoriasdisp()));
+                                  HomeAsesoriaDisp()));
                         }),
                     Divider(
                       thickness: 1.0,
                     ),
                     ListTile(
-                      title: Text("Close"),
-                      trailing: Icon(Icons.cancel),
-                      onTap: () => Navigator.of(context).pop(),
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Cerrar Sesión'),
+                      onTap: logout,
                     ),
                   ],
                 ))));
