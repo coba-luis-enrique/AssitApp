@@ -9,9 +9,9 @@ class DatabaseHelper {
 
   final String tableName = 'tableMahasiswa';
   final String columnId = 'id';
-  final String columnfirstName = 'firstName';
-  final String columnlastName = 'lastName';
-  final String columnjurusan = 'jurusan';
+  final String columnFirstName = 'firstName';
+  final String columnLastName = 'lastName';
+  final String columnJurusan = 'jurusan';
   final String columnMobileNumber = 'mobileNumber';
   final String columnEmail = 'email';
 
@@ -20,7 +20,6 @@ class DatabaseHelper {
   final String column2Username = 'username';
   final String column2Password = 'password';
   final String column2Email = 'email';
-  // final String column2Matricula = 'matricula';
 
   DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
@@ -43,16 +42,16 @@ class DatabaseHelper {
 
   Future<void> _onCreate(Database db, int version) async {
     var sql = "CREATE TABLE $tableName($columnId INTEGER PRIMARY KEY, "
-        "$columnfirstName TEXT , "
-        "$columnlastName TEXT , "
-        "$columnjurusan TEXT , "
+        "$columnFirstName TEXT , "
+        "$columnLastName TEXT , "
+        "$columnJurusan TEXT , "
         "$columnMobileNumber TEXT , "
         "$columnEmail TEXT)";
 
     var sql2 = "CREATE TABLE $tableName2($column2Id INTEGER PRIMARY KEY, "
         "$column2Username TEXT , "
         "$column2Password TEXT , "
-        "$column2Email TEXT),";
+        "$column2Email TEXT)";
 
     await db.execute(sql);
     await db.execute(sql2);
@@ -88,9 +87,9 @@ class DatabaseHelper {
     var dbClient = await _db;
     var result = await dbClient.query(tableName, columns: [
       columnId,
-      columnfirstName,
-      columnlastName,
-      columnjurusan,
+      columnFirstName,
+      columnLastName,
+      columnJurusan,
       columnMobileNumber,
       columnEmail,
     ]);
