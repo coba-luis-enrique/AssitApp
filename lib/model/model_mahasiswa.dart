@@ -1,25 +1,25 @@
-class ModelMahasiswa {
+class ModelTutoria {
   int id;
-  String firstName;
-  String lastName;
-  String jurusan;
-  String mobileNumber;
+  String asesorName;
+  String materiaName;
+  String fechaName;
+  String matriculaName;
   String email;
 
-  ModelMahasiswa({
-    this.firstName,
-    this.lastName,
-    this.jurusan,
-    this.mobileNumber,
+  ModelTutoria({
+    this.asesorName,
+    this.materiaName,
+    this.fechaName,
+    this.matriculaName,
     this.email,
   });
 
-  ModelMahasiswa.fromMap(Map<String, dynamic> map) {
+  ModelTutoria.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];
-    this.firstName = map['firstName'];
-    this.lastName = map['lastName'];
-    this.jurusan = map['jurusan'];
-    this.mobileNumber = map['mobileNumber'];
+    this.asesorName = map['asesorName'];
+    this.materiaName = map['materiaName'];
+    this.fechaName = map['fechaName'];
+    this.matriculaName = map['matriculaName'];
     this.email = map['email'];
   }
 
@@ -28,10 +28,10 @@ class ModelMahasiswa {
     if (id != null) {
       map['id'] = id;
     }
-    map['firstName'] = firstName;
-    map['lastName'] = lastName;
-    map['jurusan'] = jurusan;
-    map['mobileNumber'] = mobileNumber;
+    map['asesorName'] = asesorName;
+    map['materiaName'] = materiaName;
+    map['fechaName'] = fechaName;
+    map['matriculaName'] = matriculaName;
     map['email'] = email;
 
     return map;

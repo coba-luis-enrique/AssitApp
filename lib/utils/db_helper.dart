@@ -7,12 +7,12 @@ class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   static Database _database;
 
-  final String tableName = 'tableMahasiswa';
+  final String tableName = 'tableTutoria';
   final String columnId = 'id';
-  final String columnFirstName = 'firstName';
-  final String columnLastName = 'lastName';
-  final String columnJurusan = 'jurusan';
-  final String columnMobileNumber = 'mobileNumber';
+  final String columnasesorName = 'asesorName';
+  final String columnmateriaName = 'materiaName';
+  final String columnfechaName = 'fechaName';
+  final String columnmatriculaName = 'matriculaName';
   final String columnEmail = 'email';
 
   final String tableName2 = 'tableUser';
@@ -37,15 +37,15 @@ class DatabaseHelper {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'flutter_sqlite.db');
 
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
+    return await openDatabase(path, version: 2, onCreate: _onCreate);
   }
 
   Future<void> _onCreate(Database db, int version) async {
     var sql = "CREATE TABLE $tableName($columnId INTEGER PRIMARY KEY, "
-        "$columnFirstName TEXT , "
-        "$columnLastName TEXT , "
-        "$columnJurusan TEXT , "
-        "$columnMobileNumber TEXT , "
+        "$columnasesorName TEXT , "
+        "$columnmateriaName TEXT , "
+        "$columnfechaName TEXT , "
+        "$columnmatriculaName TEXT , "
         "$columnEmail TEXT)";
 
     var sql2 = "CREATE TABLE $tableName2($column2Id INTEGER PRIMARY KEY, "
@@ -57,7 +57,7 @@ class DatabaseHelper {
     await db.execute(sql2);
   }
 
-  Future<int> saveMahasiswa(ModelMahasiswa mahasiswa) async {
+  Future<int> saveMahasiswa(ModelTutoria mahasiswa) async {
     var dbClient = await _db;
     return await dbClient.insert(tableName, mahasiswa.toMap());
   }
@@ -87,17 +87,17 @@ class DatabaseHelper {
     var dbClient = await _db;
     var result = await dbClient.query(tableName, columns: [
       columnId,
-      columnFirstName,
-      columnLastName,
-      columnJurusan,
-      columnMobileNumber,
+      columnasesorName,
+      columnmateriaName,
+      columnfechaName,
+      columnmatriculaName,
       columnEmail,
     ]);
 
     return result.toList();
   }
 
-  Future<int> updateMahasiswa(ModelMahasiswa mahasiswa) async {
+  Future<int> updateMahasiswa(ModelTutoria mahasiswa) async {
     var dbClient = await _db;
     return await dbClient.update(
       tableName,

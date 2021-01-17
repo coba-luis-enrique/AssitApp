@@ -26,7 +26,7 @@ class _Home_Page extends State<Home_Page> {
 
   String email = '';
   String username = '';
-  List<ModelMahasiswa> listMahasiswa = [];
+  List<ModelTutoria> listMahasiswa = [];
   DatabaseHelper db = DatabaseHelper();
 
   Future<void> _getAllMahasiswa() async {
@@ -34,13 +34,13 @@ class _Home_Page extends State<Home_Page> {
     setState(() {
       listMahasiswa.clear();
       list.forEach((element) {
-        listMahasiswa.add(ModelMahasiswa.fromMap(element));
+        listMahasiswa.add(ModelTutoria.fromMap(element));
       });
       print(list);
     });
   }
 
-  Future<void> _deleteMahasiswa(ModelMahasiswa mahasiswa, int position) async {
+  Future<void> _deleteMahasiswa(ModelTutoria mahasiswa, int position) async {
     await db.deleteMahasiswa(mahasiswa.id);
 
     setState(() {
@@ -61,7 +61,7 @@ class _Home_Page extends State<Home_Page> {
     }
   }
 
-  Future<void> _openFormEdit(ModelMahasiswa mahasiswa) async {
+  Future<void> _openFormEdit(ModelTutoria mahasiswa) async {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(

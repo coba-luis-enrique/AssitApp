@@ -15,7 +15,7 @@ class HomeAsesoriaDisp extends StatefulWidget {
 class _HomePageState extends State<HomeAsesoriaDisp> {
   String email = '';
   String username = '';
-  List<ModelMahasiswa> listMahasiswa = [];
+  List<ModelTutoria> listMahasiswa = [];
   DatabaseHelper db = DatabaseHelper();
 
   Future<void> _getAllMahasiswa() async {
@@ -23,13 +23,13 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
     setState(() {
       listMahasiswa.clear();
       list.forEach((element) {
-        listMahasiswa.add(ModelMahasiswa.fromMap(element));
+        listMahasiswa.add(ModelTutoria.fromMap(element));
       });
       print(list);
     });
   }
 
-  Future<void> _deleteMahasiswa(ModelMahasiswa mahasiswa, int position) async {
+  Future<void> _deleteMahasiswa(ModelTutoria mahasiswa, int position) async {
     await db.deleteMahasiswa(mahasiswa.id);
 
     setState(() {
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
     }
   }
 
-  Future<void> _openFormEdit(ModelMahasiswa mahasiswa) async {
+  Future<void> _openFormEdit(ModelTutoria mahasiswa) async {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
         child: ListView.builder(
           itemCount: listMahasiswa.length,
           itemBuilder: (context, index) {
-            ModelMahasiswa mahasiswa = listMahasiswa[index];
+            ModelTutoria mahasiswa = listMahasiswa[index];
 
             return Column(
               children: [
@@ -111,8 +111,9 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
                     // OPEN FORM EDIT
                     _openFormEdit(mahasiswa);
                   },
-                  title: Text("${mahasiswa.firstName} ${mahasiswa.lastName}"),
-                  subtitle: Text("${mahasiswa.jurusan} | ${mahasiswa.email}"),
+                  title:
+                      Text("${mahasiswa.asesorName} ${mahasiswa.materiaName}"),
+                  subtitle: Text("${mahasiswa.fechaName} | ${mahasiswa.email}"),
                   leading: IconButton(
                     icon: Icon(Icons.visibility),
                     onPressed: () {

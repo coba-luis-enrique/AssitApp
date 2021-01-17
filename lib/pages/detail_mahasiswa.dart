@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../model/model_mahasiswa.dart';
 
 class DetailPage extends StatelessWidget {
-  final ModelMahasiswa mahasiswa;
+  final ModelTutoria mahasiswa;
   DetailPage({this.mahasiswa});
 
   @override
@@ -16,10 +16,10 @@ class DetailPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("${mahasiswa.firstName}"),
-            Text("${mahasiswa.lastName}"),
-            Text("${mahasiswa.jurusan}"),
-            Text("${mahasiswa.mobileNumber}"),
+            Text("${mahasiswa.asesorName}"),
+            Text("${mahasiswa.materiaName}"),
+            Text("${mahasiswa.fechaName}"),
+            Text("${mahasiswa.matriculaName}"),
             Text("${mahasiswa.email}"),
           ],
         ),
