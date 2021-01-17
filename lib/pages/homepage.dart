@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'asesorias_disp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/model_mahasiswa.dart';
-import 'detail_mahasiswa.dart';
-import 'form_mahasiswa.dart';
+import '../model/model_Tutoria.dart';
+import 'detail_Tutoria.dart';
+import 'form_Tutoria.dart';
 import '../utils/db_helper.dart';
 
 class Home_Page extends StatefulWidget {
@@ -26,25 +26,25 @@ class _Home_Page extends State<Home_Page> {
 
   String email = '';
   String username = '';
-  List<ModelTutoria> listMahasiswa = [];
+  List<ModelTutoria> listTutoria = [];
   DatabaseHelper db = DatabaseHelper();
 
-  Future<void> _getAllMahasiswa() async {
-    var list = await db.getAllMahasiswa();
+  Future<void> _getAllTutoria() async {
+    var list = await db.getAllTutoria();
     setState(() {
-      listMahasiswa.clear();
+      listTutoria.clear();
       list.forEach((element) {
-        listMahasiswa.add(ModelTutoria.fromMap(element));
+        listTutoria.add(ModelTutoria.fromMap(element));
       });
       print(list);
     });
   }
 
-  Future<void> _deleteMahasiswa(ModelTutoria mahasiswa, int position) async {
-    await db.deleteMahasiswa(mahasiswa.id);
+  Future<void> _deleteTutoria(ModelTutoria Tutoria, int position) async {
+    await db.deleteTutoria(Tutoria.id);
 
     setState(() {
-      listMahasiswa.removeAt(position);
+      listTutoria.removeAt(position);
     });
   }
 
@@ -52,25 +52,25 @@ class _Home_Page extends State<Home_Page> {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FormMahasiswa(),
+        builder: (context) => FormTutoria(),
       ),
     );
 
     if (result == 'save') {
-      await _getAllMahasiswa();
+      await _getAllTutoria();
     }
   }
 
-  Future<void> _openFormEdit(ModelTutoria mahasiswa) async {
+  Future<void> _openFormEdit(ModelTutoria Tutoria) async {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FormMahasiswa(mahasiswa: mahasiswa),
+        builder: (context) => FormTutoria(Tutoria: Tutoria),
       ),
     );
 
     if (result == 'update') {
-      await _getAllMahasiswa();
+      await _getAllTutoria();
     }
   }
 
@@ -97,7 +97,7 @@ class _Home_Page extends State<Home_Page> {
   @override
   void initState() {
     super.initState();
-    _getAllMahasiswa();
+    _getAllTutoria();
     getDataPref();
   }
 
@@ -355,7 +355,7 @@ class _Home_Page extends State<Home_Page> {
                         onTap: () {
                           Navigator.of(context).pop();
                           Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => FormMahasiswa(),
+                            builder: (BuildContext context) => FormTutoria(),
                           ));
                         }),
                     ListTile(

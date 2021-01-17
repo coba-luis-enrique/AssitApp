@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../model/model_mahasiswa.dart';
+import '../model/model_Tutoria.dart';
 import '../model/model_user.dart';
 
 class DatabaseHelper {
@@ -57,9 +57,9 @@ class DatabaseHelper {
     await db.execute(sql2);
   }
 
-  Future<int> saveMahasiswa(ModelTutoria mahasiswa) async {
+  Future<int> saveTutoria(ModelTutoria Tutoria) async {
     var dbClient = await _db;
-    return await dbClient.insert(tableName, mahasiswa.toMap());
+    return await dbClient.insert(tableName, Tutoria.toMap());
   }
 
   Future<int> saveUser(Modeluser user) async {
@@ -83,7 +83,7 @@ class DatabaseHelper {
 
   // }
 
-  Future<List> getAllMahasiswa() async {
+  Future<List> getAllTutoria() async {
     var dbClient = await _db;
     var result = await dbClient.query(tableName, columns: [
       columnId,
@@ -97,17 +97,17 @@ class DatabaseHelper {
     return result.toList();
   }
 
-  Future<int> updateMahasiswa(ModelTutoria mahasiswa) async {
+  Future<int> updateTutoria(ModelTutoria Tutoria) async {
     var dbClient = await _db;
     return await dbClient.update(
       tableName,
-      mahasiswa.toMap(),
+      Tutoria.toMap(),
       where: '$columnId = ?',
-      whereArgs: [mahasiswa.id],
+      whereArgs: [Tutoria.id],
     );
   }
 
-  Future<int> deleteMahasiswa(int id) async {
+  Future<int> deleteTutoria(int id) async {
     var dbClient = await _db;
     return await dbClient.delete(
       tableName,

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../model/model_mahasiswa.dart';
+import '../model/model_Tutoria.dart';
 import '../utils/db_helper.dart';
 
-class FormMahasiswa extends StatefulWidget {
-  final ModelTutoria mahasiswa;
+class FormTutoria extends StatefulWidget {
+  final ModelTutoria Tutoria;
 
-  FormMahasiswa({this.mahasiswa});
+  FormTutoria({this.Tutoria});
 
   @override
-  _FormMahasiswaState createState() => _FormMahasiswaState();
+  _FormTutoriaState createState() => _FormTutoriaState();
 }
 
-class _FormMahasiswaState extends State<FormMahasiswa> {
+class _FormTutoriaState extends State<FormTutoria> {
   DatabaseHelper db = DatabaseHelper();
 
   TextEditingController _asesorNameController = TextEditingController();
@@ -23,23 +23,23 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
   @override
   void initState() {
     super.initState();
-    if (widget.mahasiswa != null) {
+    if (widget.Tutoria != null) {
       _asesorNameController =
-          TextEditingController(text: widget.mahasiswa.asesorName);
+          TextEditingController(text: widget.Tutoria.asesorName);
       _materiaNameController =
-          TextEditingController(text: widget.mahasiswa.materiaName);
+          TextEditingController(text: widget.Tutoria.materiaName);
       _fechaNameController =
-          TextEditingController(text: widget.mahasiswa.fechaName);
+          TextEditingController(text: widget.Tutoria.fechaName);
       _matriculaNameController =
-          TextEditingController(text: widget.mahasiswa.matriculaName);
-      _emailController = TextEditingController(text: widget.mahasiswa.email);
+          TextEditingController(text: widget.Tutoria.matriculaName);
+      _emailController = TextEditingController(text: widget.Tutoria.email);
     }
   }
 
-  Future<void> createOrUpdateMahasiswa() async {
-    if (widget.mahasiswa == null) {
+  Future<void> createOrUpdateTutoria() async {
+    if (widget.Tutoria == null) {
       // create
-      await db.saveMahasiswa(ModelTutoria(
+      await db.saveTutoria(ModelTutoria(
         asesorName: _asesorNameController.text,
         materiaName: _materiaNameController.text,
         fechaName: _fechaNameController.text,
@@ -49,9 +49,9 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
       Navigator.pop(context, 'save');
     } else {
       // update
-      await db.updateMahasiswa(
+      await db.updateTutoria(
         ModelTutoria.fromMap({
-          'id': widget.mahasiswa.id,
+          'id': widget.Tutoria.id,
           'asesorName': _asesorNameController.text,
           'materiaName': _materiaNameController.text,
           'fechaName': _fechaNameController.text,
@@ -116,11 +116,11 @@ class _FormMahasiswaState extends State<FormMahasiswa> {
                     SizedBox(height: 20),
                     RaisedButton(
                       onPressed: () {
-                        createOrUpdateMahasiswa();
+                        createOrUpdateTutoria();
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      child: widget.mahasiswa == null
+                      child: widget.Tutoria == null
                           ? Text('Create')
                           : Text('Update'),
                     ),
