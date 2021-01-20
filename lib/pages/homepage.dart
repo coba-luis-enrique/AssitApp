@@ -206,7 +206,7 @@ class _Home_Page extends State<Home_Page> {
                   //height: 70,
                   padding: EdgeInsets.all(10),
                   child: Card(
-                      color: Colors.orangeAccent,
+                      color: Colors.blue[900],
                       //color: LinearGradient,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -237,14 +237,14 @@ class _Home_Page extends State<Home_Page> {
                                     left: 20, right: 20, top: 10, bottom: 10),
                                 child: MaterialButton(
                                   child: Text(
-                                    "Asesorías disponibles",
+                                    "Asesorías Disponibles",
                                     style: TextStyle(
                                         //fontSize: 20,
                                         //backgroundColor: Colors.white,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  color: Colors.blue[900],
+                                  color: Colors.lightBlue,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(
@@ -265,7 +265,7 @@ class _Home_Page extends State<Home_Page> {
                   //height: 70,
                   padding: EdgeInsets.all(10),
                   child: Card(
-                      color: Colors.orangeAccent,
+                      color: Colors.blue[900],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -302,7 +302,7 @@ class _Home_Page extends State<Home_Page> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  color: Colors.blue[900],
+                                  color: Colors.lightBlue,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                         new MaterialPageRoute(

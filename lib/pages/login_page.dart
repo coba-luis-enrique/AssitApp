@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Email atau password salah'),
+          content: Text('Correo y contraseña no encontrados'),
         ),
       );
     }
@@ -88,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
     return isLogin == 1
         ? Home_Page()
         : Scaffold(
+            backgroundColor: Colors.white,
             key: _scaffoldKey,
             body: SafeArea(
               child: SingleChildScrollView(
@@ -102,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Center(
                           child: Image.asset(
-                            "assets/logo_itsva.png",
+                            "assets/logo2.png",
                             fit: BoxFit.fill,
                             scale: 1.5,
                           ),
@@ -140,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                         Card(
                           elevation: 5,
                           child: Container(
+                            color: Colors.white,
                             padding: EdgeInsets.all(20),
                             child: Form(
                               key: _formKey,
@@ -150,12 +152,12 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _emailController,
                                     validator: (e) {
                                       return e.toLowerCase().trim().isEmpty
-                                          ? 'por favor inserta la matricula'
+                                          ? 'Por favor inserte su correo'
                                           : null;
                                     },
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      labelText: 'Matricula',
+                                      labelText: 'Correo',
                                       prefixIcon: Icon(
                                         Icons.email,
                                       ),
@@ -165,12 +167,12 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _passwordController,
                                     validator: (e) {
                                       return e.toLowerCase().trim().isEmpty
-                                          ? 'por favor inserte la contraseña'
+                                          ? 'Por favor inserte la contraseña'
                                           : null;
                                     },
                                     obscureText: true,
                                     decoration: InputDecoration(
-                                      labelText: 'Password',
+                                      labelText: 'Contraseña',
                                       prefixIcon: Icon(
                                         Icons.lock,
                                       ),
@@ -179,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                                   SizedBox(height: 20),
                                   RaisedButton(
                                     onPressed: check,
-                                    child: Text('Sign In'),
+                                    child: Text('Entrar'),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
                                     ),
@@ -209,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               },
                               child: Text(
-                                "entrar",
+                                "Crear",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue,

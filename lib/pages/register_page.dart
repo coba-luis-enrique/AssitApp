@@ -71,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   Center(
                     child: Image.asset(
-                      "assets/logo_itsva.png",
+                      "assets/logo2.png",
                       fit: BoxFit.fill,
                       scale: 1.5,
                     ),
@@ -90,12 +90,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: _usernameController,
                               validator: (e) {
                                 return e.toLowerCase().trim().isEmpty
-                                    ? 'por favor inserte un nombre de usuario'
+                                    ? 'Por favor inserte un nombre de usuario'
                                     : null;
                               },
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
-                                labelText: 'Username',
+                                labelText: 'Usuario',
                                 prefixIcon: Icon(
                                   Icons.person,
                                 ),
@@ -105,12 +105,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: _emailController,
                               validator: (e) {
                                 return e.toLowerCase().trim().isEmpty
-                                    ? 'por favor inserte su correo institucional'
+                                    ? 'Por favor inserte su correo'
                                     : null;
                               },
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                labelText: 'Email',
+                                labelText: 'Correo',
                                 prefixIcon: Icon(
                                   Icons.email,
                                 ),
@@ -120,12 +120,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: _passwordController,
                               validator: (e) {
                                 return e.toLowerCase().trim().isEmpty
-                                    ? 'por favor inserte una contraseña'
+                                    ? 'Por favor inserte una contraseña'
                                     : null;
                               },
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: 'Password',
+                                labelText: 'Contraseña',
                                 prefixIcon: Icon(
                                   Icons.lock,
                                 ),
@@ -135,20 +135,20 @@ class _RegisterPageState extends State<RegisterPage> {
                               controller: _rePasswordController,
                               validator: (e) {
                                 if (e.toLowerCase().trim().isEmpty)
-                                  return 'por favor confirma su contraseña';
+                                  return 'Por favor confirma su contraseña';
                                 if (_rePasswordController.text
                                         .toLowerCase()
                                         .trim() !=
                                     _passwordController.text
                                         .toLowerCase()
                                         .trim()) {
-                                  return 'la contraseña tiene que ser igual que la anterior';
+                                  return 'La contraseña tiene que ser igual que la anterior';
                                 }
                                 return null;
                               },
                               obscureText: true,
                               decoration: InputDecoration(
-                                labelText: 'Confirm Password',
+                                labelText: 'Confirmar Contraseña',
                                 prefixIcon: Icon(
                                   Icons.lock,
                                 ),
@@ -172,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already have account ? ",
+                        "¿Ya tienes una cuenta? ",
                         style: TextStyle(
                           letterSpacing: 2,
                         ),
@@ -182,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           Navigator.pop(context);
                         },
                         child: Text(
-                          "Sign In",
+                          "Entrar",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.blue,
