@@ -17,6 +17,9 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
   String username = '';
   List<ModelTutoria> listTutoria = [];
   DatabaseHelper db = DatabaseHelper();
+  List allCourses = List();
+  List items = List();
+  TextEditingController teSearch = TextEditingController();
 
   Future<void> _getAllTutoria() async {
     var list = await db.getAllTutoria();
@@ -88,6 +91,35 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
     super.initState();
     _getAllTutoria();
     getDataPref();
+    db.getAllTutoria().then((data){
+      setState(() {
+        allCourses = data;
+        items = allCourses;
+      });
+    });
+  }
+
+  void filterSearch(String query){
+    var searchList = allCourses;
+    if(query.isNotEmpty){
+      var listData = List();
+      searchList.forEach((item) { 
+        var tutoria = ModelTutoria.fromMap(item);
+        if(tutoria.materiaName.toLowerCase().contains(query.toLowerCase())){
+          listData.add(item);
+        }
+      });
+      setState((){
+        items = [];
+        items.addAll(listData);
+      });
+      return;
+    } else {
+      setState(() {
+        items = [];
+        items = allCourses;
+      });
+    }
   }
 
   @override
@@ -98,79 +130,101 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
         title: Text('ASESORIAS DISPONIBLES'),
         elevation: 0,
       ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: listTutoria.length,
-          itemBuilder: (context, index) {
-            ModelTutoria Tutoria = listTutoria[index];
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              onChanged: (value){
+                setState(() {
+                  filterSearch(value);
+                });
+              },
+              controller: teSearch,
+              decoration: InputDecoration(
+                labelText: 'Buscar Asesoria',
+                hintText: 'Buscando...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
+            ),
+          ),
+          Expanded(
+                      child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  ModelTutoria Tutoria = ModelTutoria.fromMap(items[index]);
+                  //ModelTutoria Tutoria = items[index];
 
-            return Column(
-              children: [
-                ListTile(
-                  onTap: () {
-                    // OPEN FORM EDIT
-                    _openFormEdit(Tutoria);
-                  },
-                  title: Text("${Tutoria.asesorName} ${Tutoria.materiaName}"),
-                  subtitle: Text("${Tutoria.fechaName} | ${Tutoria.email}"),
-                  leading: IconButton(
-                    icon: Icon(Icons.visibility),
-                    onPressed: () {
-                      // DETAIL PAGE
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailPage(
-                            Tutoria: Tutoria,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
+                  return ListTile(
+            
+              onTap: () {
+                // OPEN FORM EDIT
+                _openFormEdit(Tutoria);
+              },
+              title: Text("${Tutoria.asesorName} | ${Tutoria.materiaName}"),
+              subtitle: Text("${Tutoria.fechaName} | ${Tutoria.email}"),
+              leading: IconButton(
+                icon: Icon(Icons.visibility),
+                onPressed: () {
+                  // DETAIL PAGE
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(
+                        Tutoria: Tutoria,
+                      ),
                     ),
-                    onPressed: () {
-                      AlertDialog hapus = AlertDialog(
-                        title: Text('Informations'),
-                        content: Container(
-                          height: 100,
-                          child: Column(
-                            children: [
-                              Text(
-                                "Apakah yakin ingin menghapus data ${Tutoria.email} ?",
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          FlatButton(
-                            child: Text('Yes'),
-                            onPressed: () {
-                              // DELETE
-                              _deleteTutoria(Tutoria, index);
-                              Navigator.pop(context);
-                            },
-                          ),
-                          FlatButton(
-                            child: Text('No'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                  );
+                },
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  AlertDialog hapus = AlertDialog(
+                    title: Text('Informations'),
+                    content: Container(
+                      height: 100,
+                      child: Column(
+                        children: [
+                          Text(
+                            "Apakah yakin ingin menghapus data ${Tutoria.email} ?",
                           ),
                         ],
-                      );
-                      showDialog(context: context, child: hapus);
-                    },
-                  ),
-                ),
-                Divider(thickness: 2)
-              ],
-            );
-          },
-        ),
+                      ),
+                    ),
+                    actions: [
+                      FlatButton(
+                        child: Text('Yes'),
+                        onPressed: () {
+                          // DELETE
+                          _deleteTutoria(Tutoria, index);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('No'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                  showDialog(context: context, child: hapus);
+                },
+              ),
+            
+            //Divider(thickness: 2),
+                    
+                  );
+                },
+              ),
+          ),
+        ],
       ),
     );
   }

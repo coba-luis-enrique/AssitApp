@@ -110,7 +110,7 @@ class _HomePageState extends State<HomeAsesoria> {
                     // OPEN FORM EDIT
                     _openFormEdit(Tutoria);
                   },
-                  title: Text("${Tutoria.asesorName} ${Tutoria.materiaName}"),
+                  title: Text("${Tutoria.asesorName} | ${Tutoria.materiaName}"),
                   subtitle: Text("${Tutoria.fechaName} | ${Tutoria.email}"),
                   leading: IconButton(
                     icon: Icon(Icons.visibility),
