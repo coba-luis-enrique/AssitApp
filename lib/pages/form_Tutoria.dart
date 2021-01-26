@@ -63,6 +63,8 @@ class _FormTutoriaState extends State<FormTutoria> {
     }
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +80,7 @@ class _FormTutoriaState extends State<FormTutoria> {
             child: Container(
               padding: EdgeInsets.all(20),
               child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -86,18 +89,35 @@ class _FormTutoriaState extends State<FormTutoria> {
                       decoration: InputDecoration(
                         labelText: 'Asesor',
                       ),
+                      validator: (e) {
+                          return e.toLowerCase().trim().isEmpty
+                           ? 'Ingrese nombre de asesor'
+                           : null;
+                                    },
                     ),
                     TextFormField(
                       controller: _materiaNameController,
                       decoration: InputDecoration(
                         labelText: 'Materia:',
                       ),
+                      validator: (e) {
+                          return e.toLowerCase().trim().isEmpty
+                           ? 'Ingrese nombre de materia'
+                           : null;
+                                    },
                     ),
                     TextFormField(
                       controller: _fechaNameController,
+                      keyboardType: TextInputType.datetime,
                       decoration: InputDecoration(
-                        labelText: 'fecha',
+                        labelText: 'Fecha',
                       ),
+                      validator: (e) {
+                        if(e.isEmpty){
+                          return 'Ingrese la fecha';
+                        }
+                        return null;
+                      },
                     ),
                     TextFormField(
                       controller: _matriculaNameController,
@@ -105,6 +125,12 @@ class _FormTutoriaState extends State<FormTutoria> {
                       decoration: InputDecoration(
                         labelText: 'Matricula ',
                       ),
+                      validator: (e) {
+                        if(e.isEmpty){
+                          return 'Ingrese la matrícula';
+                        }
+                        return null;
+                      },
                     ),
                     TextFormField(
                       controller: _emailController,
@@ -112,11 +138,19 @@ class _FormTutoriaState extends State<FormTutoria> {
                       decoration: InputDecoration(
                         labelText: 'Correo Institucional',
                       ),
+                      validator: (e) {
+                          return e.toLowerCase().trim().isEmpty
+                           ? 'Ingrese correo institucional'
+                           : null;
+                                    },
                     ),
                     SizedBox(height: 20),
                     RaisedButton(
                       onPressed: () {
-                        createOrUpdateTutoria();
+                        if(_formKey.currentState.validate()){
+                          createOrUpdateTutoria();
+                        }
+                        //createOrUpdateTutoria();
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),

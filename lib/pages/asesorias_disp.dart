@@ -81,7 +81,13 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
     );
 
     if (result == 'update') {
-      await _getAllTutoria();
+      db.getAllTutoria().then((data) {
+        setState(() {
+          allCourses = data;
+          items = allCourses;
+        });
+      });
+      //await _getAllTutoria();
     }
   }
 
