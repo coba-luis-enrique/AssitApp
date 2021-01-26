@@ -13,10 +13,31 @@ class HomeAsesoriaDisp extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomeAsesoriaDisp> {
+  _HomePageState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          listTutoria = allCourses;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
   String email = '';
   String username = '';
   List<ModelTutoria> listTutoria = [];
   DatabaseHelper db = DatabaseHelper();
+  Icon _searchIcon = Icon(Icons.search);
+  final TextEditingController _filter = new TextEditingController();
+  String _searchText = "";
+  // var listTutoria = List();
+  List allCourses = new List();
+  List items = List();
 
   Future<void> _getAllTutoria() async {
     var list = await db.getAllTutoria();
@@ -34,6 +55,7 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
 
     setState(() {
       listTutoria.removeAt(position);
+      return _getAllTutoria();
     });
   }
 
@@ -88,6 +110,35 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
     super.initState();
     _getAllTutoria();
     getDataPref();
+    db.getAllTutoria().then((data) {
+      setState(() {
+        allCourses = data;
+        items = allCourses;
+      });
+    });
+  }
+
+  void filterSearch(String query) {
+    var searchList = allCourses;
+    if (query.isNotEmpty) {
+      var listData = List();
+      searchList.forEach((item) {
+        var tutoria = ModelTutoria.fromMap(item);
+        if (tutoria.materiaName.toLowerCase().contains(query.toLowerCase())) {
+          listData.add(item);
+        }
+      });
+      setState(() {
+        items = [];
+        items.addAll(listData);
+      });
+      return;
+    } else {
+      setState(() {
+        items = [];
+        items = allCourses;
+      });
+    }
   }
 
   @override
@@ -98,20 +149,39 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
         title: Text('ASESORIAS DISPONIBLES'),
         elevation: 0,
       ),
-      body: SafeArea(
-        child: ListView.builder(
-          itemCount: listTutoria.length,
-          itemBuilder: (context, index) {
-            ModelTutoria Tutoria = listTutoria[index];
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  filterSearch(value);
+                });
+              },
+              controller: _filter,
+              decoration: InputDecoration(
+                labelText: 'Buscar Asesoria',
+                hintText: 'Buscando...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                ModelTutoria Tutoria = ModelTutoria.fromMap(items[index]);
+                //ModelTutoria Tutoria = items[index];
 
-            return Column(
-              children: [
-                ListTile(
+                return ListTile(
                   onTap: () {
                     // OPEN FORM EDIT
                     _openFormEdit(Tutoria);
                   },
-                  title: Text("${Tutoria.asesorName} ${Tutoria.materiaName}"),
+                  title: Text("${Tutoria.asesorName} | ${Tutoria.materiaName}"),
                   subtitle: Text("${Tutoria.fechaName} | ${Tutoria.email}"),
                   leading: IconButton(
                     icon: Icon(Icons.visibility),
@@ -140,7 +210,7 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
                           child: Column(
                             children: [
                               Text(
-                                "Apakah yakin ingin menghapus data ${Tutoria.email} ?",
+                                "¿Estás seguro de que quieres eliminar los datos? ${Tutoria.email} ?",
                               ),
                             ],
                           ),
@@ -150,8 +220,16 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
                             child: Text('Yes'),
                             onPressed: () {
                               // DELETE
-                              _deleteTutoria(Tutoria, index);
-                              Navigator.pop(context);
+                              setState(() {
+                                db.deleteTutoria(Tutoria.id);
+                                Navigator.pop(context);
+                                db.getAllTutoria().then((data) {
+                                  setState(() {
+                                    allCourses = data;
+                                    items = allCourses;
+                                  });
+                                });
+                              });
                             },
                           ),
                           FlatButton(
@@ -165,12 +243,13 @@ class _HomePageState extends State<HomeAsesoriaDisp> {
                       showDialog(context: context, child: hapus);
                     },
                   ),
-                ),
-                Divider(thickness: 2)
-              ],
-            );
-          },
-        ),
+
+                  //Divider(thickness: 2),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
