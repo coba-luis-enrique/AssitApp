@@ -214,7 +214,7 @@ class _HomePageState extends State<HomeAsesoria> {
                     ),
                     onPressed: () {
                       AlertDialog hapus = AlertDialog(
-                        title: Text('Informations'),
+                        title: Text('Aviso'),
                         content: Container(
                           height: 100,
                           child: Column(
@@ -227,7 +227,7 @@ class _HomePageState extends State<HomeAsesoria> {
                         ),
                         actions: [
                           FlatButton(
-                            child: Text('Yes'),
+                            child: Text('Si'),
                             onPressed: () {
                               // DELETE
                               setState(() {

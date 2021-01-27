@@ -155,8 +155,8 @@ class _FormTutoriaState extends State<FormTutoria> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       child: widget.Tutoria == null
-                          ? Text('Create')
-                          : Text('Update'),
+                          ? Text('Crear Asesoria')
+                          : Text('Actualizar'),
                     ),
                   ],
                 ),

@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
     print(result);
     if (result != null) {
       Fluttertoast.showToast(
-          msg: "Register success !",
+          msg: "Registro exitoso!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
